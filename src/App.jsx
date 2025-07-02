@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   BrowserRouter as Router,
   Route,
@@ -12,8 +11,7 @@ import NoPage from './pages/nopage/NoPage';
 import MyState from './context/data/myState';
 import Login from './pages/registration/Login';
 import Signup from './pages/registration/Signup';
-import { CgProductHunt } from 'react-icons/cg';
-import Productinfo from './pages/productInfo/Productinfo';
+import Productinfo from './pages/productinfo/Productinfo.jsx';
 import AddProduct from './pages/admin/dashboard/page/AddProduct';
 import UpdateProduct from './pages/admin/dashboard/page/UpdateProduct';
 
@@ -28,7 +26,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
-          <Route path='/productinfo/:id' element={<ProductInfo />} />
+          <Route path='/productinfo/:id' element={<Productinfo />} />
           <Route path='/addproduct' element={<AddProduct />} />
           <Route path='/updateproduct' element={<UpdateProduct />} />
           <Route path="/*" element={<NoPage />} />

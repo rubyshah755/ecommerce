@@ -16,7 +16,7 @@ function myState(props) {
     }
     
   return (
-    <MyContext.Provider value={{mode, toggleMode}}>
+    <MyContext.Provider value={{mode, toogleMode}}>
         {props.children}
     </MyContext.Provider >
   )
