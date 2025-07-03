@@ -3,7 +3,9 @@ import { Link, useHref } from 'react-router-dom'
 import myContext from '../../context/data/myContext';
 import { toast } from 'react-toastify';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase/FirebaseConfig';
+import { auth, fireDB } from '../../firebase/FirebaseConfig';
+import { addDoc, collection, Timestamp } from 'firebase/firestore';
+import Loader from '../../components/loader/Loader';
 function Signup() {
    const [name, setName] = useState("");
    const [email, setEmail] = useState("");
@@ -13,22 +15,41 @@ function Signup() {
    const {loading, setLoading} = context;
 
     const signup = async () => {
+        setLoading(true)
         if(name ==="" || email ==="" || password ===""){
             return toast.error("All fields are required")
         }
         // console.log(name, email, password);
         try{
             const users = await createUserWithEmailAndPassword(auth, email, password);
-            console.log(user)
+
+            console.log(users)
+
+            const user = {
+                name: name,
+                uid: users.user.uid,
+                email: users.user.email,
+                time : Timestamp.now()
+            }
+
+            const userRef = collection(fireDB, "users")
+            await addDoc(userRef, user);
+            toast.success("Signup SUccesfully")
+            setName("");
+            setEmail("");
+            setPassword("");
+            setLoading(false)
         }
         catch (error) {
             console.log(error)
+            setLoading(false)
         }
     }
 
     return (
         <div className=' flex justify-center items-center h-screen'>
-            <div className=' bg-gray-800 px-10 py-10 rounded-xl '>
+            {loading && <Loader/>  }
+               <div className=' bg-gray-800 px-10 py-10 rounded-xl '>
                 <div className="">
                     <h1 className='text-center text-white text-xl mb-4 font-bold'>Signup</h1>
                 </div>
