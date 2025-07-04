@@ -82,7 +82,7 @@ function Signup() {
                 </div>
                 <div className=' flex justify-center mb-3'>
                     <button
-                    onClick={Signup}
+                    onClick={signup}
                         className=' bg-red-500 w-full text-white font-bold  px-2 py-2 rounded-lg'>
                         Signup
                     </button>
