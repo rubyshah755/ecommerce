@@ -6,6 +6,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, fireDB } from '../../firebase/FirebaseConfig';
 import { addDoc, collection, Timestamp } from 'firebase/firestore';
 import Loader from '../../components/loader/Loader';
+
 function Signup() {
    const [name, setName] = useState("");
    const [email, setEmail] = useState("");
@@ -34,7 +35,7 @@ function Signup() {
 
             const userRef = collection(fireDB, "users")
             await addDoc(userRef, user);
-            toast.success("Signup SUccesfully")
+            toast.success("Signup Succesfully")
             setName("");
             setEmail("");
             setPassword("");
@@ -42,7 +43,12 @@ function Signup() {
         }
         catch (error) {
             console.log(error)
-            setLoading(false)
+            toast.error(error.message);
+            setLoading(false);
+             
+        }
+        finally{
+            setLoading(false);
         }
     }
 

@@ -35,10 +35,13 @@ function Login() {
         }
         catch(error){
             console.log(error)
+            toast.error(error.message);
             setLoading(false)
         }
+        finally{
+                setLoading(false);
+            }
     }
-
     return (
         <div className=' flex justify-center items-center h-screen'>
             {loading && <Loader/>}
