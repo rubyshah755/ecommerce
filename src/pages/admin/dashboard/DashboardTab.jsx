@@ -7,7 +7,8 @@ import { AiFillShopping, AiFillPlusCircle, AiFillDelete } from 'react-icons/ai';
 
 function DashboardTab() {
     const context = useContext(myContext)
-    const { mode } = context
+    const { mode, product } = context
+    // console.log(product)
     let [isOpen, setIsOpen] = useState(false)
 
     function closeModal() {
@@ -16,6 +17,9 @@ function DashboardTab() {
 
     function openModal() {
         setIsOpen(true)
+    }
+    const add = () => {
+        window.location.href = '/addproduct'
     }
     return (
         <>
@@ -49,6 +53,7 @@ function DashboardTab() {
                                 <h1 className=' text-center mb-5 text-3xl font-semibold underline' style={{ color: mode === 'dark' ? 'white' : '' }}>Product Details</h1>
                                 <div className=" flex justify-end">
                                     <button
+                                    onClick={add}
                                         type="button"
                                         className="focus:outline-none text-white bg-pink-600 shadow-[inset_0_0_10px_rgba(0,0,0,0.6)] border hover:bg-pink-700 outline-0 font-medium rounded-lg text-sm px-5 py-2.5 mb-2" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '', }} > <div className="flex gap-2 items-center">
                                             Add Product <FaCartPlus size={20} />
@@ -81,25 +86,28 @@ function DashboardTab() {
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody className=''>
+                                        {product.map((item,index)=> {
+                                            const {title, price, imageUrl, category, description, date} = item; 
+                                            return(
+                                                <tbody className=''>
                                             <tr className="bg-gray-50 border-b  dark:border-gray-700" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '', }} >
                                                 <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                    1.
+                                                    {index + 1}.
                                                 </td>
                                                 <th scope="row" className="px-6 py-4 font-medium text-black whitespace-nowrap">
-                                                    <img className='w-16' src="https://dummyimage.com/720x400" alt="img" />
+                                                    <img className='w-16' src={imageUrl} alt="img" />
                                                 </th>
                                                 <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                    Title
+                                                    {title}
                                                 </td>
                                                 <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                    ₹100
+                                                    {price}
                                                 </td>
                                                 <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                    pots
+                                                    {category}
                                                 </td>
                                                 <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                    12 Aug 2019
+                                                    {date}
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <div className=" flex gap-2">
@@ -120,6 +128,9 @@ function DashboardTab() {
                                             </tr>
 
                                         </tbody>
+                                            )
+                                        })}
+                                        
                                     </table>
 
                                 </div>
