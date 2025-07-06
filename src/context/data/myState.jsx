@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import MyContext from './myContext'
 import { BiCategory } from 'react-icons/bi';
 import { toast } from 'react-toastify';
@@ -46,6 +46,7 @@ function myState(props) {
             const productRef = collection(fireDB, 'product')
             await addDoc(productRef, products)
             toast.success("Add product successfully")
+            getProductData();
             setLoading(false)
         }
         catch (error) {
@@ -82,9 +83,14 @@ function myState(props) {
                 setLoading(false)
             }
         }
+        useEffect(() => {
+          getProductData();
+        }, []);
     
   return (
-    <MyContext.Provider value={{mode, toogleMode, loading, setLoading}}>
+    <MyContext.Provider value={{mode, toogleMode, loading, setLoading,
+      products, setProducts, addProduct, product
+    }}>
         {props.children}
     </MyContext.Provider >
   )
