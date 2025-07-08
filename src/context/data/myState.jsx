@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import MyContext from './myContext'
 import { BiCategory } from 'react-icons/bi';
 import { toast } from 'react-toastify';
-import { addDoc, collection, deleteDoc, doc, setDoc } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, setDoc } from 'firebase/firestore';
 import { fireDB } from '../../firebase/FirebaseConfig';
 
 function myState(props) {
@@ -77,12 +77,12 @@ function myState(props) {
         QuerySnapshot.forEach((doc) => {
           productArray.push({ ...doc.data(), id: doc.id });
         });
-        setproduct(productArray)
+        setProduct(productArray)
         setLoading(false)
       });
       return () => data;
     }
-    catch {
+    catch(error) {
       console.log(error)
       setLoading(false)
     }
@@ -136,7 +136,7 @@ function myState(props) {
   return (
     <MyContext.Provider value={{
       mode, toogleMode, loading, setLoading,
-      products, setProducts, addProduct, product
+      products, setProducts, addProduct, product,
       edithandle, updateProduct, deleteProduct
     }}>
       {props.children}
