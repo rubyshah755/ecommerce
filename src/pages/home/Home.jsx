@@ -15,11 +15,11 @@ function Home() {
 
     console.log(cartItem) 
     
-    const addcart = () => {
-      dispatch(addToCart("shirt"));
+    const addCart = () => {
+      dispatch(addCart("shirt"));
     }
      const deleteCart = () => {
-      dispatch(deleteFromCart("shirt"));
+      dispatch(deleteCart("shirt"));
      }
   return (
     <Layout>

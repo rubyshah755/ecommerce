@@ -33,7 +33,7 @@ function Cart() {
       temp = temp + parseInt(cartItem.price)
     })
     setTotalAmount(temp);
-    console.log(temp) 10000
+    console.log(temp) 
   }, [cartItems])
 
   const shipping = parseInt(100);

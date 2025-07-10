@@ -4,6 +4,7 @@ import { BiCategory } from 'react-icons/bi';
 import { toast } from 'react-toastify';
 import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, setDoc } from 'firebase/firestore';
 import { fireDB } from '../../firebase/FirebaseConfig';
+import { useFetcher } from 'react-router-dom';
 
 function myState(props) {
   const [mode, setMode] = useState('Light');
@@ -133,11 +134,37 @@ function myState(props) {
     }
   }
 
+    // order
+
+    const [order, setOrder] = useState([]);
+
+  const getOrderData = async () => {
+    setLoading(true)
+    try {
+      const result = await getDocs(collection(fireDb, "orders"))
+      const ordersArray = [];
+      result.forEach((doc) => {
+        ordersArray.push(doc.data());
+        setLoading(false)
+      });
+      setOrder(ordersArray);
+      console.log(ordersArray)
+      setLoading(false);
+    } catch (error) {
+      console.log(error)
+      setLoading(false)
+    }
+  
+    useEffect(() => {
+      getOrderData();
+    }, []);
+
+  
   return (
     <MyContext.Provider value={{
       mode, toogleMode, loading, setLoading,
       products, setProducts, addProduct, product,
-      edithandle, updateProduct, deleteProduct
+      edithandle, updateProduct, deleteProduct, order
     }}>
       {props.children}
     </MyContext.Provider >
