@@ -235,8 +235,10 @@ function DashboardTab() {
                         <TabPanel>
                             {/* <User addressInfo={addressInfo} setAddressInfo={setAddressInfo} setLoading={setLoading} /> */}
                             <div className="relative overflow-x-auto mb-10">
-                                <h1 className=' text-center mb-5 text-3xl font-semibold underline' style={{ color: mode === 'dark' ? 'white' : '' }}>User Details</h1>
-                                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                <h1 className=' text-center mb-5 text-3xl font-semibold underline' style={{ color: mode === 'dark' ? 'white' : '' }}>User Details</h1>                                
+                                {order.map((allorder, index) => {
+                                    return(
+                                       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                     <thead className="text-xs text-black uppercase bg-gray-200 " style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '', }} >
                                         <tr>
                                             <th scope="col" className="px-6 py-3">
@@ -290,7 +292,9 @@ function DashboardTab() {
 
                                                 </tr>
                                     </tbody>
-                                </table>
+                                </table> 
+                                    )
+                                })}
                             </div>
                         </TabPanel>
 
