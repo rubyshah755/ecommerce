@@ -1,15 +1,14 @@
 import React, { useContext } from 'react'
-import Layout from '../../components/layout/Layout'
 import myContext from '../../context/data/myContext'
+import Layout from '../../components/layout/Layout'
+import Loader from '../../components/loader/Loader'
 
 function Order() {
-  const userid = JSON.parse(localStorage.getItem('user')).user.usid 
+  const userid = JSON.parse(localStorage.getItem('user')).user.uid
   const context = useContext(myContext)
   const { mode, loading, order } = context
   return (
-    // <Layout></Layout>
-
-   <Layout>
+    <Layout>
       {loading && <Loader />}
       {order.length > 0 ?
         (<>
@@ -50,13 +49,7 @@ function Order() {
 
       }
     </Layout>
-
-
-//     <Layout>Order
-//       <h1>Name : {name}</h1>
-//       <h1>Roll No. : {rollno}</h1>
-//     </Layout>
-//   )
-// }
+  )
+}
 
 export default Order
