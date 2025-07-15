@@ -68,7 +68,7 @@ function ProductInfo() {
                                 BRAND NAME
                             </h2>
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                                The Catcher in the Rye
+                                {products.title}
                             </h1>
                             <div className="flex mb-4">
                                 <span className="flex items-center">
@@ -169,16 +169,12 @@ function ProductInfo() {
                                 </span>
                             </div>
                             <p className="leading-relaxed border-b-2 mb-5 pb-5">
-                                Fam locavore kickstarter distillery. Mixtape chillwave tumeric
-                                sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps
-                                cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine
-                                tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean
-                                shorts keytar banjo tattooed umami cardigan.
+                                {products.description}
                             </p>
                          
                             <div className="flex">
                                 <span className="title-font font-medium text-2xl text-gray-900">
-                                    $58.00
+                                    ${products.price}
                                 </span>
                                 <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
                                     Add To Cart

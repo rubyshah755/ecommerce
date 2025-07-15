@@ -14,12 +14,13 @@ import NoPage from './pages/nopage/NoPage';
 import MyState from './context/data/myState';
 import Login from './pages/registration/Login';
 import Signup from './pages/registration/Signup';
-import ProductInfo from './pages/productInfo/ProductInfo';
+import ProductInfo from './pages/productinfo/Productinfo';
 import AddProduct from './pages/admin/page/AddProduct';
 import UpdateProduct from './pages/admin/page/UpdateProduct';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Allproducts from './pages/allproducts/Allproducts';
+
 function App() {
   return (
     <MyState>
