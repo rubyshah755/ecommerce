@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Layout from '../../components/layout/Layout'
+import myContext from '../../context/data/myContext'
 // import Layout from '../../components/layout/Layout'
 
 function ProductInfo() {
+    const context = useContext(myContext)
+
     return (
         <Layout>
             <section className="text-gray-600 body-font overflow-hidden">
