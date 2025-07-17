@@ -90,17 +90,20 @@ function DashboardTab() {
                                                 </th>
                                             </tr>
                                         </thead>
-                                        {product.map((item, index) => {
+                                        {product.map(async(item, index) => {
                                             const { title, price, imageUrl, category, description, date } = item;
+                                            const image = await fetch(imageUrl) ;
+                                            const imageB = image.blob();
                                             return (
                                                 <tbody className=''>
                                                     <tr className="bg-gray-50 border-b  dark:border-gray-700" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '', }} >
                                                         <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
                                                             {index + 1}.
                                                         </td>
-                                                        <th scope="row" className="px-6 py-4 font-medium text-black whitespace-nowrap">
-                                                            <img className='w-16' src={imageUrl} alt="img" />
-                                                        </th>
+                                                        <td scope="row" className="px-6 py-4 font-medium text-black whitespace-nowrap">
+                                                            <img className="w-16" src={image} alt="img" />
+                                                        </td>
+
                                                         <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
                                                             {title}
                                                         </td>
