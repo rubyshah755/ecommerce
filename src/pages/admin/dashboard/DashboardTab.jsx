@@ -93,7 +93,8 @@ function DashboardTab() {
                                         {product.map(async(item, index) => {
                                             const { title, price, imageUrl, category, description, date } = item;
                                             const image = await fetch(imageUrl) ;
-                                            const imageB = image.blob();
+                                            const blob = image.blob();
+                                            const urls = URL.createObjectURL(blob);
                                             return (
                                                 <tbody className=''>
                                                     <tr className="bg-gray-50 border-b  dark:border-gray-700" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '', }} >
@@ -101,7 +102,7 @@ function DashboardTab() {
                                                             {index + 1}.
                                                         </td>
                                                         <th scope="row" className="px-6 py-4 font-medium text-black whitespace-nowrap">
-                                                            <img className="w-16" src={image} alt="img" />
+                                                            <img className="w-16" src={urls[index] || ''} alt="img" />
                                                         </th>
 
                                                         <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
