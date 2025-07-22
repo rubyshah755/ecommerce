@@ -11,9 +11,46 @@ function Signup() {
    const [name, setName] = useState("");
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
+   const [errors, setErrors] = useState({});
 
    const context = useContext(myContext);
    const {loading, setLoading} = context;
+
+    const validateForm = () => {
+        const newErrors = {};
+
+        const nameRegex = /^[a-zA-Z\s'-]{2,40}$/;
+
+        if (!nameRegex.test(name.trim())) {
+            toast.error("Please enter a valid name");
+            // newErrors.name = 'Enter Valid Name';
+        } else if (name.trim().length < 2 || name.trim().length > 40) {
+            return false;
+        }
+        if (!email.trim()) {
+            toast.error("Email is required");
+            // newErrors.email = 'Email is required';
+        } else if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+            newErrors.email = 'Email is invalid';
+        }
+        if (!password) {
+            toast.error("Password is required");
+            // newErrors.password = 'Password is required';
+        } else if (password.length < 6) {
+            toast.error("Password must be at least 6 characters");
+            // newErrors.password = 'Password must be at least 6 characters';
+        }
+        // if (password !== confirmPassword) {
+        //     newErrors.confirmPassword = 'Passwords do not match';
+        // }
+
+        // if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
+        // // if (!formData.role.trim()) newErrors.role = 'Role is required';
+        // if (!formData.address.trim()) newErrors.address = 'Address is required';
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
 
     const signup = async () => {
         setLoading(true)
@@ -62,19 +99,22 @@ function Signup() {
                 <div>
                     <input type="text"
                     value={name}
-                    onChange={(e)=> setName(e.target.value)}
-                        name='name'
-                        className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
-                        placeholder='Name'
+                    onChange={(e)=> {validateForm(e); setName(e.target.value); }}
+                    name='name'
+                    className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
+                    placeholder='Name'
                     />
                 </div>
                 <div>
                     <input type="email"
-                    value={email}
-                    onChange={(e)=> setEmail(e.target.value)}
+                        value={email}
+                        onChange={(e)=> setEmail(e.target.value)}
                         name='email'
                         className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                         placeholder='Email'
+                        pattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+                        required
+                        title='Please enter a valid email address'
                     />
                 </div>
                 <div>
@@ -96,6 +136,7 @@ function Signup() {
                 <div>
                     <h2 className='text-white'>Have an account <Link className=' text-red-500 font-bold' to={'/login'}>Login</Link></h2>
                 </div>
+                {/* {errors && <p style={{color:"Red", background:"white"}}>{errors.name}</p>} */}
             </div>
         </div>
     )
