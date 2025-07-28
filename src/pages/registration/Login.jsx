@@ -2,9 +2,14 @@ import { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import myContext from '../../context/data/myContext'
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase/FirebaseConfig';
+import { auth, fireDB } from '../../firebase/FirebaseConfig';
 import { toast } from 'react-toastify';
 import Loader from '../../components/loader/Loader';
+import { collection, query, where, getDocs } from "firebase/firestore";
+// import { signInWithEmailAndPassword } from "firebase/auth";
+// 
+// import { auth, db } from "../firebase"; // Make sure these are properly imported
+
 
 function Login() {
     const context = useContext(myContext)
@@ -15,33 +20,99 @@ function Login() {
 
     const navigate = useNavigate();
 
-    const login = async() => {
-        setLoading(true)
-        try{
-            const result = await signInWithEmailAndPassword(auth,email,password);
-            toast.success("Login Successfully", {
-                position: "top-right",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-            })
-            localStorage.setItem('user', JSON.stringify(result))
-            navigate('/')
-            setLoading(false)
-        }
-        catch(error){
-            console.log(error)
-            toast.error(error.message);
-            setLoading(false)
-        }
-        finally{
-                setLoading(false);
-            }
+    // const login = async() => {
+    //     setLoading(true)
+    //     try{
+    //         const result = await signInWithEmailAndPassword(auth,email,password);
+    //         const usersRef = collection(db, "users");
+    //         const q = query(usersRef, where("email", "==", result.user.email));
+    //         toast.success("Login Successfully", {
+    //             position: "top-right",
+    //             autoClose: 2000,
+    //             hideProgressBar: true,
+    //             closeOnClick: true,
+    //             pauseOnHover: true,
+    //             draggable: true,
+    //             progress: undefined,
+    //             theme: "colored",
+    //         })
+    //         localStorage.setItem('user', JSON.stringify(result))
+    //         navigate('/')
+    //         setLoading(false)
+    //     }
+    //     catch(error){
+    //         console.log(error)
+    //         toast.error(error.message);
+    //         setLoading(false)
+    //     }
+    //     finally{
+    //             setLoading(false);
+    //         }
+    // }
+
+    const login = async () => {
+  setLoading(true);
+  try {
+    // 1. Authenticate user with email/password
+    const authResult = await signInWithEmailAndPassword(auth, email, password);
+    
+    // 2. Query Firestore for additional user data
+    const usersRef = collection(fireDB, "users");
+    const q = query(usersRef, where("email", "==", authResult.user.email));
+    const querySnapshot = await getDocs(q);
+    
+    if (querySnapshot.empty) {
+      throw new Error("No user data found in database");
     }
+    
+    // 3. Get the user document data
+    const userDoc = querySnapshot.docs[0];
+    const userData = userDoc.data();
+    
+    // 4. Store both auth and additional user data
+    const result = {
+      ...authResult,
+      userData
+    };
+    
+    localStorage.setItem('user', JSON.stringify(result));
+    
+    // 5. Show success message
+    toast.success("Login Successfully", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+    
+    // 6. Navigate to home
+    navigate('/');
+  } catch (error) {
+    console.error("Login error:", error);
+    
+    // Improved error messages
+    let errorMessage = error.message;
+    if (error.code === "auth/user-not-found") {
+      errorMessage = "No user found with this email";
+    } else if (error.code === "auth/wrong-password") {
+      errorMessage = "Incorrect password";
+    }
+    
+    toast.error(errorMessage, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+    });
+  } finally {
+    setLoading(false);
+  }
+};
     
     return (
         <div className=' flex justify-center items-center h-screen'>
