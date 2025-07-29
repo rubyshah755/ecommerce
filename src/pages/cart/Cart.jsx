@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import myContext from '../../context/data/myContext';
 import Layout from '../../components/layout/Layout';
 import Modal from '../../components/modal/Modal';
@@ -54,6 +54,13 @@ function Cart() {
   const [phoneNumber, setPhoneNumber] = useState("")
 
   const buyNow = async () => {
+    // !name ? name = JSON.parse(localStorage.getItem("user")).userData.name : name
+    if (name === '') setName(JSON.parse(localStorage.getItem("user")).userData.name)
+    await handleSubmit();
+    
+  }
+
+  const handleSubmit = async () => {
     if (name === "" || address == "" || pincode == "" || phoneNumber == "") {
       return toast.error("All fields are required", {
         position: "top-center",
@@ -82,54 +89,56 @@ function Cart() {
       )
     }
 
-    var options = {
-      key: "",
-      key_secret: "",
-      amount: parseInt(grandTotal * 100),
-      currency: "NPR",
-      order_receipt: 'order_rcptid_' + name,
-      name: "E-Shopp-Nepal",
-      description: "for testing purpose",
-      handler: function (response) {
-        console.log(response)
-        toast.success('Payment Successful')
+    // var options = {
+    //   key: "",
+    //   key_secret: "",
+    //   amount: parseInt(grandTotal * 100),
+    //   currency: "NPR",
+    //   order_receipt: 'order_rcptid_' + name,
+    //   name: "E-Shopp-Nepal",
+    //   description: "for testing purpose",
+    //   handler: function (response) {
+    //     console.log(response)
+    //     toast.success('Payment Successful')
 
-        const paymentId = response.razorpay_payment_id;
+    //     const paymentId = response.razorpay_payment_id;
 
-        const orderInfo = {
-          cartItems,
-          addressInfo,
-          date: new Date().toLocaleString(
-            "en-US",
-            {
-              month: "short",
-              day: "2-digit",
-              year: "numeric",
-            }
-          ),
-          email: JSON.parse(localStorage.getItem("user")).user.email,
-          userid: JSON.parse(localStorage.getItem("user")).user.uid,
-          paymentId
-        }
+    //     const orderInfo = {
+    //       cartItems,
+    //       addressInfo,
+    //       date: new Date().toLocaleString(
+    //         "en-US",
+    //         {
+    //           month: "short",
+    //           day: "2-digit",
+    //           year: "numeric",
+    //         }
+    //       ),
+    //       email: JSON.parse(localStorage.getItem("user")).user.email,
+    //       userid: JSON.parse(localStorage.getItem("user")).user.uid,
+    //       paymentId
+    //     }
 
-        try {
+    //     try {
 
-          const orderRef = collection(fireDB, 'order');
-          addDoc(orderRef, orderInfo);
+    //       const orderRef = collection(fireDB, 'order');
+    //       addDoc(orderRef, orderInfo);
 
-        } catch (error) {
-          console.log(error)
-        }
-      },
+    //     } catch (error) {
+    //       console.log(error)
+    //     }
+    //   },
 
-      theme: {
-        color: "#3399cc"
-      }
-    };
+    //   theme: {
+    //     color: "#3399cc"
+    //   }
+    // };
 
-    var pay = new window.Razorpay(options);
-    pay.open();
-    console.log(pay)
+    // var pay = new window.Razorpay(options);
+    // pay.open();
+    // console.log(pay)
+
+    
   }
 
   return (
