@@ -46,7 +46,7 @@ function Cart() {
 
   /**========================================================================
    *!                           Payment Intigration
-   *========================================================================**/ 
+   *========================================================================**/
 
   const [name, setName] = useState("")
   const [address, setAddress] = useState("");
@@ -55,13 +55,14 @@ function Cart() {
 
   const buyNow = async () => {
     // !name ? name = JSON.parse(localStorage.getItem("user")).userData.name : name
-    if (name === '') setName(JSON.parse(localStorage.getItem("user")).userData.name)
+    let customerName = name === '' ? JSON.parse(localStorage.getItem("user")).userData.name : name;
+    setName(customerName);
     await handleSubmit();
-    
+
   }
 
   const handleSubmit = async () => {
-    if (name === "" || address == "" || pincode == "" || phoneNumber == "") {
+    if (name === "" || address === "" || pincode === "" || phoneNumber === "") {
       return toast.error("All fields are required", {
         position: "top-center",
         autoClose: 1000,
@@ -71,75 +72,50 @@ function Cart() {
         draggable: true,
         progress: undefined,
         theme: "colored",
-      })
+      });
     }
+
+    const currentDate = new Date().toLocaleString("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+    });
 
     const addressInfo = {
       name,
       address,
       pincode,
       phoneNumber,
-      date: new Date().toLocaleString(
-        "en-US",
-        {
-          month: "short",
-          day: "2-digit",
-          year: "numeric",
-        }
-      )
+      date: currentDate,
+    };
+
+    const userData = JSON.parse(localStorage.getItem("user") || "{}");
+
+    const orderInfo = {
+      cartItems: cartItems,
+      addressInfo: addressInfo,
+      date: currentDate,
+      email: userData?.user?.email || "",
+      userid: userData?.user?.uid || "",
+    };
+
+    try {
+      const orderRef = collection(fireDB, "orders");
+      await addDoc(orderRef, orderInfo);
+      toast.success("Order Placed Successfully", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        theme: "colored",
+      });
+      localStorage.removeItem("cart");
+      window.location.href = "/order"; // Redirect to all orders page page
+    } catch (error) {
+      console.error("Error placing order:", error);
+      toast.error("Failed to place order");
     }
+  };
 
-    // var options = {
-    //   key: "",
-    //   key_secret: "",
-    //   amount: parseInt(grandTotal * 100),
-    //   currency: "NPR",
-    //   order_receipt: 'order_rcptid_' + name,
-    //   name: "E-Shopp-Nepal",
-    //   description: "for testing purpose",
-    //   handler: function (response) {
-    //     console.log(response)
-    //     toast.success('Payment Successful')
-
-    //     const paymentId = response.razorpay_payment_id;
-
-    //     const orderInfo = {
-    //       cartItems,
-    //       addressInfo,
-    //       date: new Date().toLocaleString(
-    //         "en-US",
-    //         {
-    //           month: "short",
-    //           day: "2-digit",
-    //           year: "numeric",
-    //         }
-    //       ),
-    //       email: JSON.parse(localStorage.getItem("user")).user.email,
-    //       userid: JSON.parse(localStorage.getItem("user")).user.uid,
-    //       paymentId
-    //     }
-
-    //     try {
-
-    //       const orderRef = collection(fireDB, 'order');
-    //       addDoc(orderRef, orderInfo);
-
-    //     } catch (error) {
-    //       console.log(error)
-    //     }
-    //   },
-
-    //   theme: {
-    //     color: "#3399cc"
-    //   }
-    // };
-
-    // var pay = new window.Razorpay(options);
-    // pay.open();
-    // console.log(pay)
-
-    
-  }
 
   return (
     <Layout >
@@ -259,7 +235,7 @@ export default Cart
 
 //   /**========================================================================
 //    *!                           Payment Intigration
-//    *========================================================================**/ 
+//    *========================================================================**/
 
 //   const [name, setName] = useState("")
 //   const [address, setAddress] = useState("");
