@@ -97,6 +97,8 @@ function Cart() {
       date: currentDate,
       email: userData?.user?.email || "",
       userid: userData?.user?.uid || "",
+      orderStatus: "Pending", // Add order status
+      totalpay: grandTotal, // Add total payment amount
     };
 
     try {

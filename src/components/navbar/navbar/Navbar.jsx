@@ -17,14 +17,14 @@ function Navbar() {
   const [open, setOpen] = useState(false)
 
   const user = JSON.parse(localStorage.getItem('user'));
-   
+
   // console.log(user.user.email)
-   const logout = () => {
+  const logout = () => {
     localStorage.clear('user')
     window.location.href = '/login'
-   }
+  }
 
-   const cartItems = useSelector((state) => state.cart)
+  const cartItems = useSelector((state) => state.cart)
 
   return (
     <div className="bg-white sticky top-0 z-50">
@@ -73,8 +73,8 @@ function Navbar() {
                       Order
                     </Link>
                   </div> : ""}
-            
-                  {user?.user?.email === "shahruby755@gmail.com" ? <div className="flow-root">
+
+                  {user?.user?.email === "amrendra.chaurasia@lennobyte.com" ? <div className="flow-root">
                     <Link to={'/dashboard'} className="-m-2 block p-2 font-medium text-gray-900" style={{ color: mode === 'dark' ? 'white' : '', }}>
                       admin
                     </Link>
@@ -147,7 +147,7 @@ function Navbar() {
                   <Link to={'/allproducts'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                     All Products
                   </Link>
-                   {/* <Link to={'/order'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
+                  {/* <Link to={'/order'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                     Order
                   </Link>
                   <Link to={'/dashboard'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
@@ -158,14 +158,14 @@ function Navbar() {
                   </a>  */}
                   {user ? <Link to={'/order'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                     Order
-                  </Link> : <Link to={'/signup'}  className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
-                      Signup
+                  </Link> : <Link to={'/signup'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
+                    Signup
                   </Link>}
 
-                  {user?.user?.email === 'shahruby755@gmail.com' ? 
-                  <Link to={'/dashboard'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
-                    Admin
-                  </Link> : ""}
+                  {user?.user?.email === 'amrendra.chaurasia@lennobyte.com' ?
+                    <Link to={'/dashboard'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
+                      Admin
+                    </Link> : ""}
 
                   {user ? <a onClick={logout} className="text-sm font-medium text-gray-700 cursor-pointer  " style={{ color: mode === 'dark' ? 'white' : '', }}>
                     Logout
