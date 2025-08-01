@@ -52,7 +52,8 @@ function Footer() {
               </nav>
             </div>
             <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-              <img src="https://ecommerce-sk.vercel.app/pay.png" alt="" />
+              {/* <img src="https://ecommerce-sk.vercel.app/pay.png" alt="" /> */}
+              <img src="https://www.nepsolweb.com/wp-content/uploads/2012/10/start-selling-online.jpg" alt="" />
             </div>
           </div>
 
@@ -65,7 +66,7 @@ function Footer() {
                 <h1 className=' text-2xl font-bold text-black  px-2 py-1 rounded' style={{ color: mode === 'dark' ? 'white' : '', }}>E-Shopp</h1>
               </div>
             </Link>
-            <p className="text-sm text-gray-500 sm:ml-6 sm:mt-0 mt-4" style={{ color: mode === 'dark' ? 'white' : '' }}>© 2023 E-Shopp —
+            <p className="text-sm text-gray-500 sm:ml-6 sm:mt-0 mt-4" style={{ color: mode === 'dark' ? 'white' : '' }}>© 2025 E-Shopp —
               <a href="https://twitter.com/knyttneve" rel="noopener noreferrer" className="text-gray-600 ml-1" target="_blank" style={{ color: mode === 'dark' ? 'white' : '' }}>www.eshopp.com</a>
             </p>
             <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
