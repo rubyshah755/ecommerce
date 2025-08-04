@@ -53,7 +53,7 @@ function Footer() {
             </div>
             <div className="lg:w-1/4 md:w-1/2 w-full px-4">
               {/* <img src="https://ecommerce-sk.vercel.app/pay.png" alt="" /> */}
-              <img src="https://www.nepsolweb.com/wp-content/uploads/2012/10/start-selling-online.jpg" alt="" />
+              <img src="https://www.nepsolweb.com/wp-content/uploads/2012/10/start-selling-online.jpg" alt="" style={{ height : 150 }} />
             </div>
           </div>
 

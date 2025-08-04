@@ -86,7 +86,7 @@ function Order() {
                     <p className="text-sm font-medium">Shipping Address</p>
                     <p className="text-sm">{order.addressInfo?.address}</p>
                     <p className="text-sm">
-                      {order.addressInfo?.city}, {order.addressInfo?.state} - {order.addressInfo?.pincode}
+                      {order.addressInfo?.city}, {order.addressInfo?.state} {order.addressInfo?.pincode}
                     </p>
                   </div>
 
