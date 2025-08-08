@@ -4,6 +4,15 @@ import myContext from '../../../context/data/myContext'
 function AddProduct() {
     const context = useContext(myContext);
     const { products, setProducts, addProduct } = context;
+
+    const validateProductName = () => {
+        if (!products.trim() || !/^[a-zA-Z\s'-]{2,40}$/.test(products.trim())) {
+            setErrors(prev => ({ ...prev, products: 'Enter a valid name (2–40 letters)' }));
+        } else {
+            setErrors(prev => ({ ...prev, products: '' }));
+        }
+    };
+
     return (
         <div>
             <div className='flex justify-center items-center h-screen'>
@@ -15,10 +24,12 @@ function AddProduct() {
                         <input type="text"
                             value={products.title}
                             onChange={(e) => setProducts({ ...products, title: e.target.value })}
+                            onBlur={validateProductName}
                             name='title'
                             className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                             placeholder='Product title'
                         />
+                        {/* {errors.products.title && <p className="text-red-400 text-sm mb-2">{errors.products.title}</p>} */}
                     </div>
                     <div>
                         <input type="text"
