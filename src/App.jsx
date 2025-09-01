@@ -19,7 +19,7 @@ import AddProduct from './pages/admin/page/AddProduct';
 import UpdateProduct from './pages/admin/page/UpdateProduct';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Allproducts from './pages/allproducts/Allproducts';
+import Allproducts from './pages/allproducts/AllProducts';
 import { OrdersContextProvider } from './pages/order/orderContext';
 
 function App() {
