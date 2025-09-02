@@ -62,7 +62,7 @@ function Cart() {
   }
 
   const handleSubmit = async () => {
-    if (name === "" || address === "" || pincode === "" || phoneNumber === "") {
+    if (name === "" || address === "" || pincode === "" || phoneNumber === "" || cartItems.length <= 0 ) {
       return toast.error("All fields are required", {
         position: "top-center",
         autoClose: 1000,
@@ -134,7 +134,7 @@ function Cart() {
                     <div className="mt-5 sm:mt-0">
                       <h2 className="text-lg font-bold text-gray-900" style={{ color: mode === 'dark' ? 'white' : '' }}>{title}</h2>
                       <h2 className="text-sm  text-gray-900" style={{ color: mode === 'dark' ? 'white' : '' }}>{description}</h2>
-                      <p className="mt-1 text-xs font-semibold text-gray-700" style={{ color: mode === 'dark' ? 'white' : '' }}>₹{price}</p>
+                      <p className="mt-1 text-xs font-semibold text-gray-700" style={{ color: mode === 'dark' ? 'white' : '' }}>Rs.{price}</p>
                     </div>
                     <div onClick={() => deleteCart(item)} className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -152,17 +152,17 @@ function Cart() {
           <div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3" style={{ backgroundColor: mode === 'dark' ? 'rgb(32 33 34)' : '', color: mode === 'dark' ? 'white' : '', }}>
             <div className="mb-2 flex justify-between">
               <p className="text-gray-700" style={{ color: mode === 'dark' ? 'white' : '' }}>Subtotal</p>
-              <p className="text-gray-700" style={{ color: mode === 'dark' ? 'white' : '' }}>₹{totalAmout}</p>
+              <p className="text-gray-700" style={{ color: mode === 'dark' ? 'white' : '' }}>Rs.{totalAmout}</p>
             </div>
             <div className="flex justify-between">
               <p className="text-gray-700" style={{ color: mode === 'dark' ? 'white' : '' }}>Shipping</p>
-              <p className="text-gray-700" style={{ color: mode === 'dark' ? 'white' : '' }}>₹{shipping}</p>
+              <p className="text-gray-700" style={{ color: mode === 'dark' ? 'white' : '' }}>Rs.{shipping}</p>
             </div>
             <hr className="my-4" />
             <div className="flex justify-between mb-3">
               <p className="text-lg font-bold" style={{ color: mode === 'dark' ? 'white' : '' }}>Total</p>
               <div className>
-                <p className="mb-1 text-lg font-bold" style={{ color: mode === 'dark' ? 'white' : '' }}>₹{grandTotal}</p>
+                <p className="mb-1 text-lg font-bold" style={{ color: mode === 'dark' ? 'white' : '' }}>Rs.{grandTotal}</p>
               </div>
             </div>
             {/* <Modal  /> */}

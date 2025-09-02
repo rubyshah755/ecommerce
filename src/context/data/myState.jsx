@@ -94,6 +94,8 @@ function myState(props) {
 
     useEffect(() => {
         getProductData();
+        getOrderData();
+        getUserData();
     }, []);
 
     // update product function
@@ -135,13 +137,12 @@ function myState(props) {
         }
     }
 
-
     const [order, setOrder] = useState([]);
 
     const getOrderData = async () => {
         setLoading(true)
         try {
-            const result = await getDocs(collection(fireDB, "order"))
+            const result = await getDocs(collection(fireDB, "orders"))
             const ordersArray = [];
             result.forEach((doc) => {
                 ordersArray.push(doc.data());
@@ -179,6 +180,7 @@ function myState(props) {
     useEffect(() => {
         getOrderData();
         getUserData();
+        getProductData();
     }, []);
 
     const [searchkey, setSearchkey] = useState('')
